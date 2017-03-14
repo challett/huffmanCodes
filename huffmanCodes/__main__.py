@@ -15,7 +15,7 @@ def insert_p(list, pObj):
     return
 
 
-def main(probabilities):
+def main():
     # Array is to be sorted by increasing probability.  Lowest prob will be at index 0.
     probArray = []
 
@@ -25,7 +25,7 @@ def main(probabilities):
         if inputString == "done":
             break
 
-        if len(splitString) !== 2:
+        if len(splitString) != 2:
             print "Invalid Input\n"
             continue
         pObj = dict(
