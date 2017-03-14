@@ -13,14 +13,6 @@ class HuffTree:
         self.right = right
         self.code = ''
 
-    # def setCodes(self):
-    #     while (self.left):
-    #         self.left.code += '0'
-    #         self.left.setCodes()
-    #     while (self.right):
-    #         self.right.code += '1'
-    #         self.right.setCodes()
-
     def printCodes(self, code=''):
         if (self.left):
             self.left.printCodes(code + '1')
@@ -57,9 +49,6 @@ def main():
         newTree = HuffTree(symbol=splitString[0], p=splitString[1])
         insert_p(huffList, newTree)
 
-    # for item in huffList:
-    #     print item.symbol
-
     while len(huffList) > 1:
         lo = huffList.pop()
         hi = huffList.pop()
@@ -67,8 +56,9 @@ def main():
         combined = HuffTree(p=newP, left=hi, right=lo)
         insert_p(huffList, combined)
 
-    huffList[0].printCodes()
-    #TODO: Run Huffman Algorithm to find codes
+    if len(huffList):
+        huffList[0].printCodes()
+
     return 0
 
 if __name__ == '__main__':
