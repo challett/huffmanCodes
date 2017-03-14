@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import optparse
+import math
 
 log = logging.getLogger(__name__)
 
@@ -87,9 +88,7 @@ def main():
         lo = huffList.pop()
         hi = huffList.pop()
         newP = lo.p + hi.p
-        #print "merging " + hi.symbol + " with " + lo.symbol
         combined = HuffTree(p=newP, left=hi, right=lo, symbol=hi.symbol + lo.symbol)
-        #print "combined contains left=" + combined.left.symbol + " right=" + combined.right.symbol
         insert_p(huffList, combined)
 
     def printNode(self):
@@ -105,10 +104,13 @@ def main():
         huffList[0].getLeaves(saveToDictionary)
 
     averageCodeLength = 0
+    entropy = 0
     for key, value in huffDict.items():
         averageCodeLength += len(value[0]) * value[1]
+        entropy += value[1]*math.log(1/value[1])/math.log(2)
 
     print averageCodeLength
+    print entropy/2
 
     return 0
 
