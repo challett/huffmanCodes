@@ -107,10 +107,10 @@ def main():
     entropy = 0
     for key, value in huffDict.items():
         averageCodeLength += len(value[0]) * value[1]
-        entropy += value[1]*math.log(1/value[1])/math.log(2)
+        entropy += value[1]*math.log(1./value[1], 2)
 
     print averageCodeLength
-    print entropy/2
+    print entropy
 
     return 0
 
