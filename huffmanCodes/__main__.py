@@ -16,20 +16,17 @@ class HuffTree:
     def setCodes(self, code=''):
         self.code = code
         if (self.left):
-            print "Calling left with code " + code+"1"
             self.left.setCodes(code+"1")
         if (self.right):
-            print "Calling right with code " + code+"0" + " From " + self.symbol
             self.right.setCodes(code+"0")
 
-    def printCodes(self):
+    def getLeaves(self, action):
         if (self.left):
-            self.left.printCodes()
+            self.left.getLeaves(action)
         if (self.right):
-            self.right.printCodes()
+            self.right.getLeaves(action)
         else:
-            print self.symbol + " - " + self.code
-
+            action(self)
 
 # Insert a pObj such that the sorting of the list is persisted
 def insert_p(huffList, newTree):
@@ -95,14 +92,26 @@ def main():
         #print "combined contains left=" + combined.left.symbol + " right=" + combined.right.symbol
         insert_p(huffList, combined)
 
+    def printNode(self):
+        print self.symbol + " - " + self.code
+
+    huffDict = dict()
+    def saveToDictionary(self):
+        huffDict[self.symbol] = (self.code, self.p)
+
     if len(huffList):
         huffList[0].setCodes()
-        huffList[0].printCodes()
+        huffList[0].getLeaves(printNode)
+        huffList[0].getLeaves(saveToDictionary)
 
+    averageCodeLength = 0
+    for key, value in huffDict.items():
+        averageCodeLength += len(value[0]) * value[1]
+
+    print averageCodeLength
 
     return 0
 
 if __name__ == '__main__':
-
     log.info('')
     sys.exit(main())
