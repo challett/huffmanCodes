@@ -5,10 +5,10 @@ import optparse
 import math
 # from huffmanCodes.server import app
 from flask import Flask, render_template
+from hufftree import HuffTree
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def index():
@@ -17,29 +17,6 @@ def index():
 @app.errorhandler(404)
 def error_404(notfound_exception):
     return index()
-
-class HuffTree:
-    def __init__(self, p, symbol='', left=None, right=None):
-        self.p = p
-        self.symbol = symbol
-        self.left = left
-        self.right = right
-        self.code = ''
-
-    def setCodes(self, code=''):
-        self.code = code
-        if (self.left):
-            self.left.setCodes(code+"1")
-        if (self.right):
-            self.right.setCodes(code+"0")
-
-    def getLeaves(self, action):
-        if (self.left):
-            self.left.getLeaves(action)
-        if (self.right):
-            self.right.getLeaves(action)
-        else:
-            action(self)
 
 # Insert a pObj such that the sorting of the list is persisted
 def insert_p(huffList, newTree):
