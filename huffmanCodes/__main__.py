@@ -3,8 +3,20 @@ import os
 import sys
 import optparse
 import math
-
+# from huffmanCodes.server import app
+from flask import Flask, render_template
 log = logging.getLogger(__name__)
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.errorhandler(404)
+def error_404(notfound_exception):
+    return index()
 
 class HuffTree:
     def __init__(self, p, symbol='', left=None, right=None):
@@ -115,5 +127,7 @@ def main():
     return 0
 
 if __name__ == '__main__':
-    log.info('')
-    sys.exit(main())
+
+    app.run(host=os.getenv('HOST', 'localhost'),
+            port=int(os.getenv('PORT', '8080')),
+            debug=bool(os.getenv('DEBUG_ON', '1')))
