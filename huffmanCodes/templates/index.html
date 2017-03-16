@@ -4,18 +4,26 @@
     <meta charset="UTF-8">
     <title>Huffman Coding</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/huffman.css">
     <link rel="shortcut icon" href="">
   </head>
 
   <body>
-    <div class="container">
-      <h1>Huffman Coding Application</h1>
-      <br>
-      <div id="main"></div>
+    <div id='main'>
+      <div class="row">
+        <div class="col s4 push-s4">
+          <div id="main-paper" class="card-panel teal z-depth-4">
+
+          </div>
+        </div>
+      </div>
     </div>
+
     <!-- scripts -->
-    <script src="{{ url_for('static', filename='huffman.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/huffman.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
   </body>
 </html>
