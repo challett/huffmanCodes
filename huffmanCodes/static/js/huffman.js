@@ -4,7 +4,7 @@ socket.on('codeResponse', function(data) {
     console.log("Response received", data)
 });
 
-function testFunction(form) {
+function onFormSubmit() {
   var returnArray = []
   $("#mainform .row").each(function(i,item) {
     returnArray.push({
