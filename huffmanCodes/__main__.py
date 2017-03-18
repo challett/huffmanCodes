@@ -4,7 +4,7 @@ import sys
 import optparse
 import math
 # from huffmanCodes.server import app
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from hufftree import HuffTree
 log = logging.getLogger(__name__)
 
@@ -13,6 +13,11 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/calculate', methods=['GET', 'POST'])
+def calculate():
+    print request.form
+    return index()
 
 @app.errorhandler(404)
 def error_404(notfound_exception):
