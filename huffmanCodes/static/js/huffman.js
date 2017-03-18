@@ -5,14 +5,22 @@ socket.on('codeResponse', function(data) {
 });
 
 function onFormSubmit() {
-  var returnArray = []
+  var returnArray = [],
+      sum = 0;
   $("#mainform .row").each(function(i,item) {
-    returnArray.push({
-        symbol: $(item).children("input")[0].value,
-        p: $(item).children("input")[1].value
-    })
+    var pValue =  +$(item).children("input")[1].value,
+        symbol = $(item).children("input")[0].value;
+    if (pValue && symbol) {
+      sum += pValue
+      returnArray.push({
+          symbol: symbol,
+          p: pValue
+      })
+    }
   })
-  socket.emit('calculateCodes', {data: returnArray});
+
+  if (sum === 1)
+    socket.emit('calculateCodes', {data: returnArray});
 }
 
 var i = 1;
@@ -38,6 +46,7 @@ function addInput(){
   text.setAttribute("placeholder", "Symbol");
   text.setAttribute("Name", "symbol_" + i);
   text.setAttribute("id", "symbol_" + i);
+  text.setAttribute("required", "required");
 
   number.setAttribute("type", "number");
   number.setAttribute("step", "0.0001");
@@ -45,6 +54,9 @@ function addInput(){
   number.setAttribute("placeholder", "P-Value");
   number.setAttribute("Name", "p_" + i);
   number.setAttribute("id", "p_" + i);
+  number.setAttribute("required", "required");
+  number.setAttribute("max", "1");
+  number.setAttribute("min", "0");
 
   button.setAttribute("class", "col s1 btn offset-s2");
   button.setAttribute("onClick", "removeInput(this)");
