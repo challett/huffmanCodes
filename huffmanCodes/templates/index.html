@@ -14,11 +14,11 @@
       <div class="row">
         <div class="col m8 push-m2">
           <div id="main-paper" class="card-panel z-depth-4">
-            <form action="/calculate" id="mainform" method="post" name="mainform">
+            <form action="javascript:testFunction(this);" id="mainform" method="post" name="mainform">
               <span id="pInputForm">
                 <div class="row" id="row_id_0">
                   <input class="col s3" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol">
-                  <input class="col s4 offset-s1" type="number" name="p_0" step="0.00001" placeholder="P-Value">
+                  <input class="col s4 offset-s1" type="number" name="p_0" id="p_0" step="0.00001" placeholder="P-Value">
                 </div>
               </span>
               <button type="button" class="btn" onclick="addInput()">+</button>
@@ -30,9 +30,10 @@
     </div>
 
     <!-- scripts -->
-    <script src="{{ url_for('static', filename='js/huffman.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/huffman.js') }}"></script>
 
   </body>
 </html>

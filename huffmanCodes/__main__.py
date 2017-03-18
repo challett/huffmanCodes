@@ -3,12 +3,16 @@ import os
 import sys
 import optparse
 import math
-# from huffmanCodes.server import app
+
 from flask import Flask, render_template, request
+from flask_socketio import SocketIO, emit
+
 from hufftree import HuffTree
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
+socketio = SocketIO(app)
+
 
 @app.route('/')
 def index():
@@ -17,11 +21,16 @@ def index():
 @app.route('/calculate', methods=['GET', 'POST'])
 def calculate():
     print request.form
-    return index()
+    return ('', 204)
 
 @app.errorhandler(404)
 def error_404(notfound_exception):
     return index()
+
+@socketio.on('calculateCodes')
+def test_message(message):
+    codeDict = createCodes(message["data"])
+    emit('codeResponse', {'data': codeDict})
 
 # Insert a pObj such that the sorting of the list is persisted
 def insert_p(huffList, newTree):
@@ -33,50 +42,12 @@ def insert_p(huffList, newTree):
     return
 
 
-def main():
+def createCodes(inputArray):
     # Array is to be sorted by increasing probability.  Lowest prob will be at index 0.
     huffList = []
 
-    # while True:
-    #     inputString = raw_input("Enter probabilities as symbol=p, enter done when done\n")
-    #     splitString = inputString.split('=')
-    #     if inputString == "done":
-    #         break
-    #
-    #     if len(splitString) != 2:
-    #         print "Invalid Input\n"
-    #         continue
-    #
-    #     newTree = HuffTree(symbol=splitString[0], p=float(splitString[1]))
-
-
-
-    newTree = HuffTree(symbol="AA", p=9./16)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="AB", p=9./64)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="AC", p=3./64)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="BA", p=9./64)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="BB", p=9./256)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="BC", p=3./256)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="CA", p=3./64)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="CB", p=3./256)
-    insert_p(huffList, newTree)
-
-    newTree = HuffTree(symbol="CC", p=1./256)
-    insert_p(huffList, newTree)
+    for item in inputArray:
+        insert_p(huffList,HuffTree(symbol=item["symbol"], p=float(item["p"])))
 
     while len(huffList) > 1:
         lo = huffList.pop()
@@ -90,7 +61,7 @@ def main():
 
     huffDict = dict()
     def saveToDictionary(self):
-        huffDict[self.symbol] = (self.code, self.p)
+        huffDict[self.symbol] = dict(code=self.code, p=self.p)
 
     if len(huffList):
         huffList[0].setCodes()
@@ -100,16 +71,15 @@ def main():
     averageCodeLength = 0
     entropy = 0
     for key, value in huffDict.items():
-        averageCodeLength += len(value[0]) * value[1]
-        entropy += value[1]*math.log(1./value[1], 2)
+        averageCodeLength += len(value["code"]) * value["p"]
+        entropy += value["p"]*math.log(1./value["p"], 2)
 
     print averageCodeLength
     print entropy
 
-    return 0
+    return huffDict
 
 if __name__ == '__main__':
-
-    app.run(host=os.getenv('HOST', 'localhost'),
+    socketio.run(app, host=os.getenv('HOST', 'localhost'),
             port=int(os.getenv('PORT', '8080')),
             debug=bool(os.getenv('DEBUG_ON', '1')))

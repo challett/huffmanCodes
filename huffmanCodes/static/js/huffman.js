@@ -1,3 +1,20 @@
+var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+socket.on('codeResponse', function(data) {
+    console.log("Response received", data)
+});
+
+function testFunction(form) {
+  var returnArray = []
+  $("#mainform .row").each(function(i,item) {
+    returnArray.push({
+        symbol: $(item).children("input")[0].value,
+        p: $(item).children("input")[1].value
+    })
+  })
+  socket.emit('calculateCodes', {data: returnArray});
+}
+
 var i = 1;
 function increment(){
   i += 1;
@@ -20,12 +37,14 @@ function addInput(){
   text.setAttribute("class", "col s3")
   text.setAttribute("placeholder", "Symbol");
   text.setAttribute("Name", "symbol_" + i);
+  text.setAttribute("id", "symbol_" + i);
 
   number.setAttribute("type", "number");
   number.setAttribute("step", "0.0001");
   number.setAttribute("class", "col s4 offset-s1")
   number.setAttribute("placeholder", "P-Value");
   number.setAttribute("Name", "p_" + i);
+  number.setAttribute("id", "p_" + i);
 
   button.setAttribute("class", "col s1 btn offset-s2");
   button.setAttribute("onClick", "removeInput(this)");
