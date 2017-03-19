@@ -4,8 +4,10 @@ socket.on('codeResponse', function(data) {
     $("#results-container").html('');
     $("#average-length-container").html(data.averageCodeLength);
     $("#entropy-container").html(data.entropy);
-
-    _.each(data.codes, function (item, key) {
+    _.each(_.orderBy(data.codes, function (item) {
+      console.log(item.code.length)
+      return item.code.length
+    }), function (item, key) {
       var resultRow = document.createElement("div");
       var resultName = document.createElement("div");
       var resultSymbol = document.createElement("div");
