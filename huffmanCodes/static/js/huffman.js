@@ -1,7 +1,33 @@
 var socket = io.connect('http://' + document.domain + ':' + location.port);
 
 socket.on('codeResponse', function(data) {
-    console.log("Response received", data)
+    $("#results-container").html('');
+    $("#average-length-container").html(data.averageCodeLength);
+    $("#entropy-container").html(data.entropy);
+
+    _.each(data.codes, function (item, key) {
+      var resultRow = document.createElement("div");
+      var resultName = document.createElement("div");
+      var resultSymbol = document.createElement("div");
+
+      resultRow.setAttribute("class", "row")
+      resultName.setAttribute("class", "col s6");
+      resultSymbol.setAttribute("class", "col s6");
+
+      resultName.innerHTML = key;
+      resultSymbol.innerHTML = item.code;
+
+      resultRow.appendChild(resultName);
+      resultRow.appendChild(resultSymbol);
+
+      document.getElementById("results-container").appendChild(resultRow);
+    })
+
+    $('#result-modal').modal("open");
+});
+
+$(document).ready(function(){
+   $('#result-modal').modal();
 });
 
 function onFormSubmit() {

@@ -29,8 +29,8 @@ def error_404(notfound_exception):
 
 @socketio.on('calculateCodes')
 def test_message(message):
-    codeDict = createCodes(message["data"])
-    emit('codeResponse', {'data': codeDict})
+    (codeDict, averageCodeLength, entropy) = createCodes(message["data"])
+    emit('codeResponse', {'codes': codeDict, 'entropy': entropy, 'averageCodeLength': averageCodeLength})
 
 # Insert a pObj such that the sorting of the list is persisted
 def insert_p(huffList, newTree):
@@ -77,7 +77,7 @@ def createCodes(inputArray):
     print averageCodeLength
     print entropy
 
-    return huffDict
+    return (huffDict, averageCodeLength, entropy)
 
 if __name__ == '__main__':
     socketio.run(app, host=os.getenv('HOST', 'localhost'),
