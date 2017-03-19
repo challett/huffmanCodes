@@ -79,7 +79,7 @@ function addInput(){
   text.setAttribute("required", "required");
 
   number.setAttribute("type", "number");
-  number.setAttribute("step", "0.0001");
+  number.setAttribute("step", "any");
   number.setAttribute("class", "col s4 offset-s1")
   number.setAttribute("placeholder", "P-Value");
   number.setAttribute("Name", "p_" + i);
