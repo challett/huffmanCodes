@@ -11,21 +11,28 @@
 
   <body>
     <div id='main'>
-      <div class="row">
-        <div class="col m8 push-m2">
-          <div id="main-paper" class="card-panel z-depth-4">
-            <div class="card-panel red lighten-2" hidden=True id="p-sum-error">Please ensure that your p values add up to 1</div>
-            <form action="javascript:onFormSubmit();" id="mainform" method="post" name="mainform">
-              <span id="pInputForm">
-                <div class="row" id="row_id_0">
-                  <input class="col s3" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol" required="required">
-                  <input class="col s4 offset-s1" type="number" name="p_0" id="p_0" step="any" placeholder="P-Value" required="required" min="0" max="1">
-                </div>
-              </span>
-              <button type="button" class="btn" onclick="addInput()">+</button>
-              <p></p><button type="submit" class="btn" value="Submit">Submit</button>
-            </form>
+      <div class="section no-pad-bot teal lighten-2 white-text z-depth-1" id="index-banner">
+        <div class="container">
+          <h1 class="header center-on-small-only">Huffman Code Generator</h1>
+          <div class="row center">
+            <h4 class="header col s12 light center">An application for generating Huffman codes for a given system of symbols and probabilities</h4>
           </div>
+          <br>
+        </div>
+      </div>
+      <div class="section">
+        <div id="main-paper" class="container">
+          <div class="card-panel red lighten-2" hidden=True id="p-sum-error">Please ensure that your p values add up to 1</div>
+          <form action="javascript:onFormSubmit();" id="mainform" method="post" name="mainform">
+            <span id="pInputForm">
+              <div class="row" id="row_id_0">
+                <input class="col s3" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol" required="required">
+                <input class="col s4 offset-s1" type="number" name="p_0" id="p_0" step="any" placeholder="P-Value" required="required" min="0" max="1">
+              </div>
+            </span>
+            <button type="button" class="btn" onclick="addInput()">+</button>
+            <p></p><button type="submit" class="btn" value="Submit">Submit</button>
+          </form>
         </div>
       </div>
     </div>
