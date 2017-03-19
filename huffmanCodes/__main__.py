@@ -42,12 +42,13 @@ def insert_p(huffList, newTree):
     return
 
 
-def createCodes(inputArray):
+def createCodes(inputDict):
     # Array is to be sorted by increasing probability.  Lowest prob will be at index 0.
     huffList = []
 
-    for item in inputArray:
-        insert_p(huffList,HuffTree(symbol=item["symbol"], p=float(item["p"])))
+    print inputDict.items()
+    for item in inputDict.items():
+        insert_p(huffList,HuffTree(symbol=item[0], p=float(item[1])))
 
     while len(huffList) > 1:
         lo = huffList.pop()

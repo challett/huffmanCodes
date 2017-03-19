@@ -31,22 +31,18 @@ $(document).ready(function(){
 });
 
 function onFormSubmit() {
-  var returnArray = [],
+  var returnObject = {},
       sum = 0;
   $("#mainform .row").each(function(i,item) {
     var pValue =  +$(item).children("input")[1].value,
         symbol = $(item).children("input")[0].value;
     if (pValue && symbol) {
       sum += pValue
-      returnArray.push({
-          symbol: symbol,
-          p: pValue
-      })
+      returnObject[symbol] = pValue + (returnObject[symbol] || 0);
     }
   })
-
   if (sum === 1){
-    socket.emit('calculateCodes', {data: returnArray});
+    socket.emit('calculateCodes', {data: returnObject});
     $("#p-sum-error").hide()
   }else {
     $("#p-sum-error").show()
