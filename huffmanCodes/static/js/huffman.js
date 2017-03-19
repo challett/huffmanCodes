@@ -19,8 +19,12 @@ function onFormSubmit() {
     }
   })
 
-  if (sum === 1)
+  if (sum === 1){
     socket.emit('calculateCodes', {data: returnArray});
+    $("#p-sum-error").hide()
+  }else {
+    $("#p-sum-error").show()
+  }
 }
 
 var i = 1;
