@@ -18,11 +18,6 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html')
 
-@app.route('/calculate', methods=['GET', 'POST'])
-def calculate():
-    print request.form
-    return ('', 204)
-
 @app.errorhandler(404)
 def error_404(notfound_exception):
     return index()
