@@ -4,8 +4,9 @@ socket.on('codeResponse', function(data) {
     $("#results-container").html('');
     $("#average-length-container").html(data.averageCodeLength);
     $("#entropy-container").html(data.entropy);
-    _.each(_.orderBy(data.codes, function (item) {
-      console.log(item.code.length)
+    _.each(_.orderBy(_.map(data.codes, function(item, key) {
+      return _.defaults(item, {symbol: key})
+    }), function (item, key) {
       return item.code.length
     }), function (item, key) {
       var resultRow = document.createElement("div");
@@ -16,7 +17,7 @@ socket.on('codeResponse', function(data) {
       resultName.setAttribute("class", "col s6");
       resultSymbol.setAttribute("class", "col s6");
 
-      resultName.innerHTML = key;
+      resultName.innerHTML = item.symbol;
       resultSymbol.innerHTML = item.code;
 
       resultRow.appendChild(resultName);

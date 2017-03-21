@@ -45,7 +45,4 @@ def createCodes(inputDict):
         averageCodeLength += len(value["code"]) * value["p"]
         entropy += value["p"]*math.log(1./value["p"], 2)
 
-    print averageCodeLength
-    print entropy
-
     return (huffDict, averageCodeLength, entropy)
