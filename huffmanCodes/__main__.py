@@ -4,7 +4,7 @@ import sys
 
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
-from calculate import insert_p, createCodes
+from calculate import insert_p, create_codes
 
 log = logging.getLogger(__name__)
 
@@ -16,13 +16,15 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html')
 
+
 @app.errorhandler(404)
 def error_404(notfound_exception):
     return index()
 
+
 @socketio.on('calculateCodes')
 def test_message(message):
-    (codeDict, averageCodeLength, entropy) = createCodes(message["data"])
+    (codeDict, averageCodeLength, entropy) = create_codes(message["data"])
     emit('codeResponse', {'codes': codeDict, 'entropy': entropy, 'averageCodeLength': averageCodeLength})
 
 

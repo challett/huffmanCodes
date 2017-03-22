@@ -1,48 +1,44 @@
 from hufftree import HuffTree
-import optparse
 import math
 
-# Insert a pObj such that the sorting of the list is persisted
-def insert_p(huffList, newTree):
-    for index, huffTree in enumerate(huffList):
-        if huffTree.p < newTree.p:
-            huffList.insert(index, newTree)
+
+def insert_p(huff_list, new_tree):
+    # Insert a pObj such that the sorting of the list is persisted
+    for index, huffTree in enumerate(huff_list):
+        if huffTree.p < new_tree.p:
+            huff_list.insert(index, new_tree)
             return
-    huffList.append(newTree)
+    huff_list.append(new_tree)
     return
 
 
-def createCodes(inputDict):
+def create_codes(input_dict):
     # Array is to be sorted by increasing probability.  Lowest prob will be at index 0.
-    huffList = []
+    huff_list = []
 
-    print inputDict.items()
-    for item in inputDict.items():
-        insert_p(huffList,HuffTree(symbol=item[0], p=float(item[1])))
+    for item in input_dict.items():
+        insert_p(huff_list,HuffTree(symbol=item[0], p=float(item[1])))
 
-    while len(huffList) > 1:
-        lo = huffList.pop()
-        hi = huffList.pop()
-        newP = lo.p + hi.p
-        combined = HuffTree(p=newP, left=hi, right=lo, symbol=hi.symbol + lo.symbol)
-        insert_p(huffList, combined)
+    while len(huff_list) > 1:
+        lo = huff_list.pop()
+        hi = huff_list.pop()
+        new_p = lo.p + hi.p
+        combined = HuffTree(p=new_p, left=hi, right=lo, symbol=hi.symbol + lo.symbol)
+        insert_p(huff_list, combined)
 
-    def printNode(self):
-        print self.symbol + " - " + self.code
+    huff_dict = dict()
 
-    huffDict = dict()
-    def saveToDictionary(self):
-        huffDict[self.symbol] = dict(code=self.code, p=self.p)
+    def save_to_dictionary(self):
+        huff_dict[self.symbol] = dict(code=self.code, p=self.p)
 
-    if len(huffList):
-        huffList[0].setCodes()
-        huffList[0].getLeaves(printNode)
-        huffList[0].getLeaves(saveToDictionary)
+    if len(huff_list):
+        huff_list[0].setCodes()
+        huff_list[0].getLeaves(save_to_dictionary)
 
-    averageCodeLength = 0
+    average_code_length = 0
     entropy = 0
-    for key, value in huffDict.items():
-        averageCodeLength += len(value["code"]) * value["p"]
+    for key, value in huff_dict.items():
+        average_code_length += len(value["code"]) * value["p"]
         entropy += value["p"]*math.log(1./value["p"], 2)
 
-    return (huffDict, averageCodeLength, entropy)
+    return huff_dict, average_code_length, entropy
