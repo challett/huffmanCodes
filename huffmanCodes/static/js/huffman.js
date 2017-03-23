@@ -87,7 +87,7 @@ function addInput(){
   number.setAttribute("max", "1");
   number.setAttribute("min", "0");
 
-  button.setAttribute("class", "col s1 btn offset-s2");
+  button.setAttribute("class", "col offset-s2 btn btn-floating btn-large waves-effect waves-light teal");
   button.setAttribute("onClick", "removeInput(this)");
   button.innerHTML = "-"
 
