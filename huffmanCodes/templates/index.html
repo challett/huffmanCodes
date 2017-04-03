@@ -5,6 +5,7 @@
     <title>Huffman Coding</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../static/styles/huffman.css">
     <link rel="shortcut icon" href="">
   </head>
@@ -24,15 +25,22 @@
         <div id="main-paper" class="container">
           <div class="card-panel red lighten-2" hidden=True id="p-sum-error">Please ensure that your p values add up to 1</div>
           <form action="javascript:onFormSubmit();" id="mainform" method="post" name="mainform">
-            <span id="pInputForm">
-              <div class="row" id="row_id_0">
-                <input class="col s3" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol" required="required">
-                <input class="col s4 offset-s1" type="number" name="p_0" id="p_0" step="any" placeholder="P-Value" required="required" min="0" max="1">
+            <div class="row">
+              <span id="pInputForm">
+                <div class="row" id="row_id_0">
+                  <input class="col s3 offset-s1" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol" required="required">
+                  <input class="col s3 offset-s1" type="number" name="p_0" id="p_0" step="any" placeholder="P-Value" required="required" min="0" max="1">
+                </div>
+              </span>
+              <div class="row">
+                <div class="col offset-s1">
+                  <a onclick="addInput()" class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></a>
+                </div>
               </div>
-            </span>
-            <a onclick="addInput()" class="btn-floating btn-large waves-effect waves-light teal">+</a>
-            <!-- <button type="button" class="btn" >+</button> -->
-            <p></p><button type="submit" class="btn" value="Submit">Submit</button>
+            </div>
+            <div class="row">
+              <button type="submit" class="btn col s10 offset-s1" value="Submit">Generate Codes</button>
+            </div>
           </form>
         </div>
       </div>

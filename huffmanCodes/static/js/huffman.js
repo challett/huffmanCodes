@@ -66,12 +66,12 @@ function addInput(){
   var text = document.createElement("INPUT");
   var number = document.createElement("INPUT");
   var row = document.createElement("div");
-  var button = document.createElement("button");
+  var button = document.createElement("a");
 
   row.setAttribute("class", "row")
 
   text.setAttribute("type", "text");
-  text.setAttribute("class", "col s3")
+  text.setAttribute("class", "col s3 offset-s1")
   text.setAttribute("placeholder", "Symbol");
   text.setAttribute("Name", "symbol_" + i);
   text.setAttribute("id", "symbol_" + i);
@@ -79,7 +79,7 @@ function addInput(){
 
   number.setAttribute("type", "number");
   number.setAttribute("step", "any");
-  number.setAttribute("class", "col s4 offset-s1")
+  number.setAttribute("class", "col s3 offset-s1")
   number.setAttribute("placeholder", "P-Value");
   number.setAttribute("Name", "p_" + i);
   number.setAttribute("id", "p_" + i);
@@ -87,9 +87,10 @@ function addInput(){
   number.setAttribute("max", "1");
   number.setAttribute("min", "0");
 
-  button.setAttribute("class", "col offset-s2 btn btn-floating btn-large waves-effect waves-light teal");
+  button.setAttribute("class", "col offset-s1 btn-floating btn-large waves-effect waves-light teal");
   button.setAttribute("onClick", "removeInput(this)");
-  button.innerHTML = "-"
+  button.style.padding = '0';
+  button.innerHTML = "<i class='material-icons'>delete</i>"
 
   row.appendChild(text);
   row.appendChild(number);
