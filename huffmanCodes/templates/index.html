@@ -24,24 +24,20 @@
       <div class="section">
         <div id="main-paper" class="container">
           <div class="card-panel red lighten-2" hidden=True id="p-sum-error">Please ensure that your p values add up to 1</div>
+          <div class="row">
           <form action="javascript:onFormSubmit();" id="mainform" method="post" name="mainform">
-            <div class="row">
-              <span id="pInputForm">
-                <div class="row" id="row_id_0">
-                  <input class="col s3 offset-s1" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol" required="required">
-                  <input class="col s3 offset-s1" type="number" name="p_0" id="p_0" step="any" placeholder="P-Value" required="required" min="0" max="1">
-                </div>
-              </span>
-              <div class="row">
-                <div class="col offset-s1">
-                  <a onclick="addInput()" class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></a>
-                </div>
+            <span id="pInputForm">
+              <div class="row" id="row_id_0">
+                <input class="col s3 offset-s1" type="text" name="symbol_0" id="symbol_0" placeholder="Symbol" required="required">
+                <input class="col s3 offset-s1" type="number" name="p_0" id="p_0" step="any" placeholder="P-Value" required="required" min="0" max="1">
               </div>
+            </span>
+            <div class="col offset-s1">
+              <a onclick="addInput()" class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></a>
             </div>
-            <div class="row">
-              <button type="submit" class="btn col s10 offset-s1" value="Submit">Generate Codes</button>
-            </div>
+            <button type="submit" class="btn col s10 offset-s1" style="margin-top: 20px" value="Submit">Generate Codes</button>
           </form>
+        </div>
         </div>
       </div>
     </div>
