@@ -44,7 +44,7 @@ function onFormSubmit() {
       returnObject[symbol] = pValue + (returnObject[symbol] || 0);
     }
   })
-  if (sum === 1){
+  if (sum < 1.01 && sum > 0.99){
     socket.emit('calculateCodes', {data: returnObject});
     $("#p-sum-error").hide()
   }else {
